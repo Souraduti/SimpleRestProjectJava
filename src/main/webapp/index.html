@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Addition and Subtraction Calculator</title>
+</head>
+<body>
+<h1>Simple Calculator</h1>
+<p>Enter two numbers to perform addition and subtraction:</p>
+<input type="text" id="num1" placeholder="Enter first number">
+<input type="text" id="num2" placeholder="Enter second number">
+<br>
+<br>
+<button onclick="addition()">Addition</button>
+<br>
+<br>
+<button onclick="subtraction()">Subtraction</button>
+
+<p>Result:</p>
+<p id="Result"></p>
+
+<script>
+
+        function addition() {
+            var num1 = parseInt(document.getElementById("num1").value);
+            var num2 = parseInt(document.getElementById("num2").value);
+            if (isNaN(num1) || isNaN(num2)){
+                alert("Please enter valid numbers");
+                return;
+            }
+            let URL = "http://localhost:8080/NewRestAPI/webapi/home/";
+            URL +="add"+"?"+"op1="+num1+"&"+"op2="+num2;
+            let xmlhttp1 = new XMLHttpRequest();
+            xmlhttp1.onreadystatechange = function(){
+                if(xmlhttp1.readyState!=4) return;
+                document.getElementById("Result").innerHTML = xmlhttp1.responseText;
+                //console.log(xmlhttp1.responseText);
+            }
+            xmlhttp1.open("GET",URL,true);
+            xmlhttp1.send(null);
+        }
+        function subtraction() {
+            var num1 = parseInt(document.getElementById("num1").value);
+            var num2 = parseInt(document.getElementById("num2").value);
+
+            if (isNaN(num1) || isNaN(num2)){
+                alert("Please enter valid numbers");
+                return;
+            }
+            let URL = "http://localhost:8080/NewRestAPI/webapi/home/";
+            URL +="sub"+"?"+"op1="+num1+"&"+"op2="+num2;
+            let xmlhttp2 = new XMLHttpRequest();
+            xmlhttp2.onreadystatechange = function(){
+                if(xmlhttp2.readyState!=4) return;
+                document.getElementById("Result").innerHTML = xmlhttp2.responseText;
+                //console.log(xmlhttp.responseText);
+            }
+            xmlhttp2.open("GET",URL,true);
+            xmlhttp2.send(null);
+        }
+    </script>
+</body>
+</html>
